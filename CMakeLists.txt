@@ -1,0 +1,466 @@
+cmake_minimum_required(VERSION 3.26)
+project(lckfb_SkyStar_DAPLINK)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(app)
+include_directories(board)
+include_directories(bsp)
+include_directories(libraries/CherryRB)
+include_directories(libraries/CherryUSB-0.10.2)
+include_directories(libraries/CherryUSB-0.10.2/class/audio)
+include_directories(libraries/CherryUSB-0.10.2/class/cdc)
+include_directories(libraries/CherryUSB-0.10.2/class/dfu)
+include_directories(libraries/CherryUSB-0.10.2/class/hid)
+include_directories(libraries/CherryUSB-0.10.2/class/hub)
+include_directories(libraries/CherryUSB-0.10.2/class/midi)
+include_directories(libraries/CherryUSB-0.10.2/class/msc)
+include_directories(libraries/CherryUSB-0.10.2/class/mtp)
+include_directories(libraries/CherryUSB-0.10.2/class/printer)
+include_directories(libraries/CherryUSB-0.10.2/class/template)
+include_directories(libraries/CherryUSB-0.10.2/class/vendor/asix)
+include_directories(libraries/CherryUSB-0.10.2/class/vendor/cp201x)
+include_directories(libraries/CherryUSB-0.10.2/class/video)
+include_directories(libraries/CherryUSB-0.10.2/class/wireless)
+include_directories(libraries/CherryUSB-0.10.2/common)
+include_directories(libraries/CherryUSB-0.10.2/core)
+include_directories(libraries/CherryUSB-0.10.2/demo)
+include_directories(libraries/CherryUSB-0.10.2/osal)
+include_directories(libraries/CherryUSB-0.10.2/port/ch32)
+include_directories(libraries/CherryUSB-0.10.2/port/dwc2)
+include_directories(libraries/CherryUSB-0.10.2/port/ehci)
+include_directories(libraries/CherryUSB-0.10.2/port/fsdev)
+include_directories(libraries/CherryUSB-0.10.2/port/musb)
+include_directories(libraries/CherryUSB-0.10.2/port/nrf5x)
+include_directories(libraries/CherryUSB-0.10.2/port/rp2040)
+include_directories(libraries/CherryUSB-0.10.2/port/xhci)
+include_directories(libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM0)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM3)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM3_MPU)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM4_MPU)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM4F)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM7/r0p1)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM0)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM3)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM4F)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM4F_MPU)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM7/r0p1)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM0)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM3)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM4_MPU)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM4F)
+include_directories(libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM7/r0p1)
+include_directories(libraries/CMSIS)
+include_directories(libraries/CMSIS/GD/GD32F4xx/Include)
+include_directories(libraries/DAPLink/Config)
+include_directories(libraries/DAPLink/Include)
+include_directories(libraries/GD32F4xx_standard_peripheral/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/class/audio/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/class/cdc/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/class/dfu/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/class/hid/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/class/iap/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/class/msc/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/class/printer/Include)
+include_directories(libraries/GD32F4xx_usb_library/device/core/Include)
+include_directories(libraries/GD32F4xx_usb_library/driver/Include)
+include_directories(libraries/GD32F4xx_usb_library/host/class/hid/Include)
+include_directories(libraries/GD32F4xx_usb_library/host/class/msc/Include)
+include_directories(libraries/GD32F4xx_usb_library/host/core/Include)
+include_directories(libraries/GD32F4xx_usb_library/ustd)
+include_directories(libraries/GD32F4xx_usb_library/ustd/class)
+include_directories(libraries/GD32F4xx_usb_library/ustd/class/cdc)
+include_directories(libraries/GD32F4xx_usb_library/ustd/class/hid)
+include_directories(libraries/GD32F4xx_usb_library/ustd/class/msc)
+include_directories(libraries/GD32F4xx_usb_library/ustd/common)
+include_directories(module/soft_timer)
+
+add_executable(lckfb_SkyStar_DAPLINK
+        app/bitband.h
+        app/cmsis_compiler.h
+        app/DAP_config.h
+        app/dap_main.c
+        app/dap_main.h
+        app/main.c
+        app/usb2uart.c
+        app/usb2uart.h
+        app/usb_config.h
+        board/linker_scripts/link.ld
+        board/board.c
+        board/board.h
+        board/gd32f4xx_libopt.h
+        bsp/bsp_led.c
+        bsp/bsp_led.h
+        bsp/bsp_uart.c
+        bsp/bsp_uart.h
+        libraries/CherryRB/chry_ringbuffer.c
+        libraries/CherryRB/chry_ringbuffer.h
+        libraries/CherryUSB-0.10.2/class/audio/usb_audio.h
+        libraries/CherryUSB-0.10.2/class/audio/usbd_audio.c
+        libraries/CherryUSB-0.10.2/class/audio/usbd_audio.h
+        libraries/CherryUSB-0.10.2/class/audio/usbh_audio.c
+        libraries/CherryUSB-0.10.2/class/audio/usbh_audio.h
+        libraries/CherryUSB-0.10.2/class/cdc/usb_cdc.h
+        libraries/CherryUSB-0.10.2/class/cdc/usbd_cdc.c
+        libraries/CherryUSB-0.10.2/class/cdc/usbd_cdc.h
+        libraries/CherryUSB-0.10.2/class/cdc/usbd_cdc_ecm.c
+        libraries/CherryUSB-0.10.2/class/cdc/usbd_cdc_ecm.h
+        libraries/CherryUSB-0.10.2/class/cdc/usbh_cdc_acm.c
+        libraries/CherryUSB-0.10.2/class/cdc/usbh_cdc_acm.h
+        libraries/CherryUSB-0.10.2/class/cdc/usbh_cdc_ecm.c
+        libraries/CherryUSB-0.10.2/class/cdc/usbh_cdc_ecm.h
+        libraries/CherryUSB-0.10.2/class/dfu/usb_dfu.h
+        libraries/CherryUSB-0.10.2/class/dfu/usbd_dfu.c
+        libraries/CherryUSB-0.10.2/class/dfu/usbd_dfu.h
+        libraries/CherryUSB-0.10.2/class/hid/usb_hid.h
+        libraries/CherryUSB-0.10.2/class/hid/usbd_hid.c
+        libraries/CherryUSB-0.10.2/class/hid/usbd_hid.h
+        libraries/CherryUSB-0.10.2/class/hid/usbh_hid.c
+        libraries/CherryUSB-0.10.2/class/hid/usbh_hid.h
+        libraries/CherryUSB-0.10.2/class/hub/usb_hub.h
+        libraries/CherryUSB-0.10.2/class/hub/usbh_hub.c
+        libraries/CherryUSB-0.10.2/class/hub/usbh_hub.h
+        libraries/CherryUSB-0.10.2/class/midi/usb_midi.h
+        libraries/CherryUSB-0.10.2/class/msc/usb_msc.h
+        libraries/CherryUSB-0.10.2/class/msc/usb_scsi.h
+        libraries/CherryUSB-0.10.2/class/msc/usbd_msc.c
+        libraries/CherryUSB-0.10.2/class/msc/usbd_msc.h
+        libraries/CherryUSB-0.10.2/class/msc/usbh_msc.c
+        libraries/CherryUSB-0.10.2/class/msc/usbh_msc.h
+        libraries/CherryUSB-0.10.2/class/mtp/usb_mtp.h
+        libraries/CherryUSB-0.10.2/class/mtp/usbd_mtp.c
+        libraries/CherryUSB-0.10.2/class/mtp/usbd_mtp.h
+        libraries/CherryUSB-0.10.2/class/mtp/usbd_mtp_config.h
+        libraries/CherryUSB-0.10.2/class/mtp/usbh_mtp.c
+        libraries/CherryUSB-0.10.2/class/mtp/usbh_mtp.h
+        libraries/CherryUSB-0.10.2/class/printer/usb_printer.h
+        libraries/CherryUSB-0.10.2/class/printer/usbd_printer.c
+        libraries/CherryUSB-0.10.2/class/printer/usbd_printer.h
+        libraries/CherryUSB-0.10.2/class/printer/usbh_printer.c
+        libraries/CherryUSB-0.10.2/class/printer/usbh_printer.h
+        libraries/CherryUSB-0.10.2/class/template/usb_xxx.h
+        libraries/CherryUSB-0.10.2/class/template/usbd_xxx.c
+        libraries/CherryUSB-0.10.2/class/template/usbd_xxx.h
+        libraries/CherryUSB-0.10.2/class/template/usbh_xxx.c
+        libraries/CherryUSB-0.10.2/class/template/usbh_xxx.h
+        libraries/CherryUSB-0.10.2/class/vendor/air72x/usbh_air724.c
+        libraries/CherryUSB-0.10.2/class/vendor/asix/asix.h
+        libraries/CherryUSB-0.10.2/class/vendor/asix/axusbnet.c
+        libraries/CherryUSB-0.10.2/class/vendor/asix/axusbnet.h
+        libraries/CherryUSB-0.10.2/class/vendor/cp201x/usbh_cp210x.c
+        libraries/CherryUSB-0.10.2/class/vendor/cp201x/usbh_cp210x.h
+        libraries/CherryUSB-0.10.2/class/video/usb_video.h
+        libraries/CherryUSB-0.10.2/class/video/usbd_video.c
+        libraries/CherryUSB-0.10.2/class/video/usbd_video.h
+        libraries/CherryUSB-0.10.2/class/video/usbh_video.c
+        libraries/CherryUSB-0.10.2/class/video/usbh_video.h
+        libraries/CherryUSB-0.10.2/class/wireless/ndis.h
+        libraries/CherryUSB-0.10.2/class/wireless/rndis_protocol.h
+        libraries/CherryUSB-0.10.2/class/wireless/usbd_rndis.c
+        libraries/CherryUSB-0.10.2/class/wireless/usbd_rndis.h
+        libraries/CherryUSB-0.10.2/class/wireless/usbh_rndis.c
+        libraries/CherryUSB-0.10.2/class/wireless/usbh_rndis.h
+        libraries/CherryUSB-0.10.2/common/usb_dc.h
+        libraries/CherryUSB-0.10.2/common/usb_def.h
+        libraries/CherryUSB-0.10.2/common/usb_errno.h
+        libraries/CherryUSB-0.10.2/common/usb_hc.h
+        libraries/CherryUSB-0.10.2/common/usb_list.h
+        libraries/CherryUSB-0.10.2/common/usb_log.h
+        libraries/CherryUSB-0.10.2/common/usb_mem.h
+        libraries/CherryUSB-0.10.2/common/usb_util.h
+        libraries/CherryUSB-0.10.2/core/usbd_core.c
+        libraries/CherryUSB-0.10.2/core/usbd_core.h
+        libraries/CherryUSB-0.10.2/core/usbh_core.c
+        libraries/CherryUSB-0.10.2/core/usbh_core.h
+        libraries/CherryUSB-0.10.2/demo/audio_v1_mic_multichan_template.c
+        libraries/CherryUSB-0.10.2/demo/audio_v1_mic_speaker_multichan_template.c
+        libraries/CherryUSB-0.10.2/demo/audio_v2_mic_multichan_template.c
+        libraries/CherryUSB-0.10.2/demo/audio_v2_mic_speaker_multichan_template.c
+        libraries/CherryUSB-0.10.2/demo/audio_v2_speaker_multichan_template.c
+        libraries/CherryUSB-0.10.2/demo/cdc_acm_hid_msc_template.c
+        libraries/CherryUSB-0.10.2/demo/cdc_acm_msc_template.c
+        libraries/CherryUSB-0.10.2/demo/cdc_acm_multi_template.c
+        libraries/CherryUSB-0.10.2/demo/cdc_acm_template.c
+        libraries/CherryUSB-0.10.2/demo/cdc_ecm_template.c
+        libraries/CherryUSB-0.10.2/demo/cdc_rndis_template.c
+        libraries/CherryUSB-0.10.2/demo/dfu_st_cubemx_main.c
+        libraries/CherryUSB-0.10.2/demo/dfu_with_st_tool_template.c
+        libraries/CherryUSB-0.10.2/demo/hid_custom_inout_template.c
+        libraries/CherryUSB-0.10.2/demo/hid_keyboard_template.c
+        libraries/CherryUSB-0.10.2/demo/hid_mouse_template.c
+        libraries/CherryUSB-0.10.2/demo/midi_template.c
+        libraries/CherryUSB-0.10.2/demo/msc_ram_template.c
+        libraries/CherryUSB-0.10.2/demo/msc_storage_template.c
+        libraries/CherryUSB-0.10.2/demo/mtp_template.c
+        libraries/CherryUSB-0.10.2/demo/music_16k_ac1.h
+        libraries/CherryUSB-0.10.2/demo/music_16k_ac2.h
+        libraries/CherryUSB-0.10.2/demo/pic_data.h
+        libraries/CherryUSB-0.10.2/demo/printer_template.c
+        libraries/CherryUSB-0.10.2/demo/usb_host.c
+        libraries/CherryUSB-0.10.2/demo/video_static_mjpeg_template.c
+        libraries/CherryUSB-0.10.2/demo/webusb_template.c
+        libraries/CherryUSB-0.10.2/demo/winusb1.0_template.c
+        libraries/CherryUSB-0.10.2/osal/usb_osal.h
+        libraries/CherryUSB-0.10.2/osal/usb_osal_freertos.c
+        libraries/CherryUSB-0.10.2/osal/usb_osal_rtthread.c
+        libraries/CherryUSB-0.10.2/osal/usb_osal_yoc.c
+        libraries/CherryUSB-0.10.2/port/ch32/usb_ch32_usbfs_reg.h
+        libraries/CherryUSB-0.10.2/port/ch32/usb_ch32_usbhs_reg.h
+        libraries/CherryUSB-0.10.2/port/ch32/usb_ch58x_dc_usbfs.c
+        libraries/CherryUSB-0.10.2/port/ch32/usb_ch58x_usbfs_reg.h
+        libraries/CherryUSB-0.10.2/port/ch32/usb_dc_usbfs.c
+        libraries/CherryUSB-0.10.2/port/ch32/usb_dc_usbhs.c
+        libraries/CherryUSB-0.10.2/port/ch32/usb_hc_usbfs.c
+        libraries/CherryUSB-0.10.2/port/ch32/usb_hc_usbhs.c
+        libraries/CherryUSB-0.10.2/port/dwc2/usb_dc_dwc2.c
+        libraries/CherryUSB-0.10.2/port/dwc2/usb_dwc2_reg.h
+        libraries/CherryUSB-0.10.2/port/dwc2/usb_hc_dwc2.c
+        libraries/CherryUSB-0.10.2/port/ehci/usb_ehci_priv.h
+        libraries/CherryUSB-0.10.2/port/ehci/usb_glue_bouffalo.c
+        libraries/CherryUSB-0.10.2/port/ehci/usb_glue_hpm.c
+        libraries/CherryUSB-0.10.2/port/ehci/usb_hc_ehci.c
+        libraries/CherryUSB-0.10.2/port/ehci/usb_hc_ehci.h
+        libraries/CherryUSB-0.10.2/port/fsdev/usb_dc_fsdev.c
+        libraries/CherryUSB-0.10.2/port/fsdev/usb_fsdev_reg.h
+        libraries/CherryUSB-0.10.2/port/hpm/usb_dc_hpm.c
+        libraries/CherryUSB-0.10.2/port/musb/usb_dc_musb.c
+        libraries/CherryUSB-0.10.2/port/musb/usb_hc_musb.c
+        libraries/CherryUSB-0.10.2/port/musb/usb_musb_reg.h
+        libraries/CherryUSB-0.10.2/port/nrf5x/nrf5x_regs.h
+        libraries/CherryUSB-0.10.2/port/nrf5x/usb_dc_nrf5x.c
+        libraries/CherryUSB-0.10.2/port/nuvoton/usb_dc_usbfs.c
+        libraries/CherryUSB-0.10.2/port/pusb2/usb_dc_pusb2.c
+        libraries/CherryUSB-0.10.2/port/pusb2/usb_hc_pusb2.c
+        libraries/CherryUSB-0.10.2/port/rp2040/usb_dc_rp2040.c
+        libraries/CherryUSB-0.10.2/port/rp2040/usb_rp2040_reg.h
+        libraries/CherryUSB-0.10.2/port/template/usb_dc.c
+        libraries/CherryUSB-0.10.2/port/template/usb_hc.c
+        libraries/CherryUSB-0.10.2/port/xhci/usb_hc_xhci.c
+        libraries/CherryUSB-0.10.2/port/xhci/usb_hc_xhci.h
+        libraries/CherryUSB-0.10.2/port/xhci/xhci.c
+        libraries/CherryUSB-0.10.2/port/xhci/xhci.h
+        libraries/CherryUSB-0.10.2/port/xhci/xhci_dbg.c
+        libraries/CherryUSB-0.10.2/port/xhci/xhci_reg.h
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/port/fatfs_usbd.c
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/port/fatfs_usbh.c
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/diskio.c
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/diskio.h
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/ff.c
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/ff.h
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/ffconf.h
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/ffsystem.c
+        libraries/CherryUSB-0.10.2/third_party/fatfs-0.14/source/ffunicode.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/atomic.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/croutine.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/deprecated_definitions.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/event_groups.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/FreeRTOS.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/list.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/message_buffer.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/mpu_prototypes.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/mpu_wrappers.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/portable.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/projdefs.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/queue.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/semphr.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/stack_macros.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/StackMacros.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/stream_buffer.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/task.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/include/timers.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM0/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM0/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM3/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM3/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM3_MPU/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM3_MPU/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM4_MPU/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM4_MPU/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM4F/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM4F/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM7/r0p1/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/GCC/ARM_CM7/r0p1/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM0/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM0/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM3/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM3/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM4F/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM4F/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM4F_MPU/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM4F_MPU/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM7/r0p1/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/IAR/ARM_CM7/r0p1/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/MemMang/heap_1.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/MemMang/heap_2.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/MemMang/heap_3.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/MemMang/heap_4.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/MemMang/heap_5.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM0/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM0/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM3/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM3/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM4_MPU/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM4_MPU/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM4F/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM4F/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM7/r0p1/port.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/portable/RVDS/ARM_CM7/r0p1/portmacro.h
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/rndis_host/rndis_host.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/croutine.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/event_groups.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/list.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/queue.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/stream_buffer.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/tasks.c
+        libraries/CherryUSB-0.10.2/third_party/FreeRTOS-10.4/timers.c
+        libraries/CherryUSB-0.10.2/third_party/rt-thread-4.1.1/dfs/drv_usbh_cp210x_rtt.c
+        libraries/CherryUSB-0.10.2/third_party/rt-thread-4.1.1/dfs/udisk.c
+        libraries/CherryUSB-0.10.2/third_party/rt-thread-4.1.1/rndis_host/rndis_host.c
+        libraries/CherryUSB-0.10.2/third_party/rt-thread-4.1.1/rndis_host/rndis_host_lwip2.1.2.c
+        libraries/CherryUSB-0.10.2/third_party/rt-thread-4.1.1/msh_cmd.c
+        libraries/CherryUSB-0.10.2/cherryusb_config_template.h
+        libraries/CMSIS/GD/GD32F4xx/Include/gd32f4xx.h
+        libraries/CMSIS/GD/GD32F4xx/Include/system_gd32f4xx.h
+        libraries/CMSIS/GD/GD32F4xx/Source/system_gd32f4xx.c
+        libraries/CMSIS/core_cm4.h
+        libraries/CMSIS/core_cm4_simd.h
+        libraries/CMSIS/core_cmFunc.h
+        libraries/CMSIS/core_cmInstr.h
+        libraries/DAPLink/Config/DAP_config.h
+        libraries/DAPLink/Include/DAP.h
+        libraries/DAPLink/Source/DAP.c
+        libraries/DAPLink/Source/DAP_vendor.c
+        libraries/DAPLink/Source/JTAG_DP.c
+        libraries/DAPLink/Source/SW_DP.c
+        libraries/DAPLink/Source/SWO.c
+        libraries/DAPLink/Source/UART.c
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_adc.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_can.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_crc.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_ctc.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_dac.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_dbg.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_dci.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_dma.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_enet.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_exmc.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_exti.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_fmc.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_fwdgt.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_gpio.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_i2c.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_ipa.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_iref.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_misc.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_pmu.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_rcu.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_rtc.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_sdio.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_spi.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_syscfg.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_timer.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_tli.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_trng.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_usart.h
+        libraries/GD32F4xx_standard_peripheral/Include/gd32f4xx_wwdgt.h
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_adc.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_can.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_crc.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_ctc.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_dac.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_dbg.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_dci.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_dma.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_enet.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_exmc.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_exti.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_fmc.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_fwdgt.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_gpio.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_i2c.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_ipa.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_iref.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_misc.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_pmu.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_rcu.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_rtc.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_sdio.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_spi.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_syscfg.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_timer.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_tli.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_trng.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_usart.c
+        libraries/GD32F4xx_standard_peripheral/Source/gd32f4xx_wwdgt.c
+        libraries/GD32F4xx_usb_library/device/class/audio/Include/audio_core.h
+        libraries/GD32F4xx_usb_library/device/class/audio/Include/audio_out_itf.h
+        libraries/GD32F4xx_usb_library/device/class/audio/Source/audio_core.c
+        libraries/GD32F4xx_usb_library/device/class/audio/Source/audio_out_itf.c
+        libraries/GD32F4xx_usb_library/device/class/cdc/Include/cdc_acm_core.h
+        libraries/GD32F4xx_usb_library/device/class/cdc/Source/cdc_acm_core.c
+        libraries/GD32F4xx_usb_library/device/class/dfu/Include/dfu_core.h
+        libraries/GD32F4xx_usb_library/device/class/dfu/Include/dfu_mem.h
+        libraries/GD32F4xx_usb_library/device/class/dfu/Source/dfu_core.c
+        libraries/GD32F4xx_usb_library/device/class/dfu/Source/dfu_mem.c
+        libraries/GD32F4xx_usb_library/device/class/hid/Include/custom_hid_core.h
+        libraries/GD32F4xx_usb_library/device/class/hid/Include/standard_hid_core.h
+        libraries/GD32F4xx_usb_library/device/class/hid/Source/custom_hid_core.c
+        libraries/GD32F4xx_usb_library/device/class/hid/Source/standard_hid_core.c
+        libraries/GD32F4xx_usb_library/device/class/iap/Include/usb_iap_core.h
+        libraries/GD32F4xx_usb_library/device/class/iap/Source/usb_iap_core.c
+        libraries/GD32F4xx_usb_library/device/class/msc/Include/usbd_msc_bbb.h
+        libraries/GD32F4xx_usb_library/device/class/msc/Include/usbd_msc_core.h
+        libraries/GD32F4xx_usb_library/device/class/msc/Include/usbd_msc_mem.h
+        libraries/GD32F4xx_usb_library/device/class/msc/Include/usbd_msc_scsi.h
+        libraries/GD32F4xx_usb_library/device/class/msc/Source/usbd_msc_bbb.c
+        libraries/GD32F4xx_usb_library/device/class/msc/Source/usbd_msc_core.c
+        libraries/GD32F4xx_usb_library/device/class/msc/Source/usbd_msc_scsi.c
+        libraries/GD32F4xx_usb_library/device/class/printer/Include/printer_core.h
+        libraries/GD32F4xx_usb_library/device/class/printer/Source/printer_core.c
+        libraries/GD32F4xx_usb_library/device/core/Include/usbd_core.h
+        libraries/GD32F4xx_usb_library/device/core/Include/usbd_enum.h
+        libraries/GD32F4xx_usb_library/device/core/Include/usbd_transc.h
+        libraries/GD32F4xx_usb_library/device/core/Source/usbd_core.c
+        libraries/GD32F4xx_usb_library/device/core/Source/usbd_enum.c
+        libraries/GD32F4xx_usb_library/device/core/Source/usbd_transc.c
+        libraries/GD32F4xx_usb_library/driver/Include/drv_usb_core.h
+        libraries/GD32F4xx_usb_library/driver/Include/drv_usb_dev.h
+        libraries/GD32F4xx_usb_library/driver/Include/drv_usb_host.h
+        libraries/GD32F4xx_usb_library/driver/Include/drv_usb_hw.h
+        libraries/GD32F4xx_usb_library/driver/Include/drv_usb_regs.h
+        libraries/GD32F4xx_usb_library/driver/Include/drv_usbd_int.h
+        libraries/GD32F4xx_usb_library/driver/Include/drv_usbh_int.h
+        libraries/GD32F4xx_usb_library/driver/Source/drv_usb_core.c
+        libraries/GD32F4xx_usb_library/driver/Source/drv_usb_dev.c
+        libraries/GD32F4xx_usb_library/driver/Source/drv_usb_host.c
+        libraries/GD32F4xx_usb_library/driver/Source/drv_usbd_int.c
+        libraries/GD32F4xx_usb_library/driver/Source/drv_usbh_int.c
+        libraries/GD32F4xx_usb_library/host/class/hid/Include/usbh_hid_core.h
+        libraries/GD32F4xx_usb_library/host/class/hid/Include/usbh_standard_hid.h
+        libraries/GD32F4xx_usb_library/host/class/hid/Source/usbh_hid_core.c
+        libraries/GD32F4xx_usb_library/host/class/hid/Source/usbh_standard_hid.c
+        libraries/GD32F4xx_usb_library/host/class/msc/Include/usbh_msc_bbb.h
+        libraries/GD32F4xx_usb_library/host/class/msc/Include/usbh_msc_core.h
+        libraries/GD32F4xx_usb_library/host/class/msc/Include/usbh_msc_scsi.h
+        libraries/GD32F4xx_usb_library/host/class/msc/Source/usbh_msc_bbb.c
+        libraries/GD32F4xx_usb_library/host/class/msc/Source/usbh_msc_core.c
+        libraries/GD32F4xx_usb_library/host/class/msc/Source/usbh_msc_fatfs.c
+        libraries/GD32F4xx_usb_library/host/class/msc/Source/usbh_msc_scsi.c
+        libraries/GD32F4xx_usb_library/host/core/Include/usbh_core.h
+        libraries/GD32F4xx_usb_library/host/core/Include/usbh_enum.h
+        libraries/GD32F4xx_usb_library/host/core/Include/usbh_pipe.h
+        libraries/GD32F4xx_usb_library/host/core/Include/usbh_transc.h
+        libraries/GD32F4xx_usb_library/host/core/Source/usbh_core.c
+        libraries/GD32F4xx_usb_library/host/core/Source/usbh_enum.c
+        libraries/GD32F4xx_usb_library/host/core/Source/usbh_pipe.c
+        libraries/GD32F4xx_usb_library/host/core/Source/usbh_transc.c
+        libraries/GD32F4xx_usb_library/ustd/class/cdc/usb_cdc.h
+        libraries/GD32F4xx_usb_library/ustd/class/hid/usb_hid.h
+        libraries/GD32F4xx_usb_library/ustd/class/msc/msc_bbb.h
+        libraries/GD32F4xx_usb_library/ustd/class/msc/msc_scsi.h
+        libraries/GD32F4xx_usb_library/ustd/class/msc/usb_msc.h
+        libraries/GD32F4xx_usb_library/ustd/common/usb_ch9_std.h
+        module/soft_timer/soft_timer.c
+        module/soft_timer/soft_timer.h)
